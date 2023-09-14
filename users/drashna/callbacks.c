@@ -43,10 +43,6 @@ void                       keyboard_pre_init_user(void) {
 void keyboard_post_init_qp(void);
 #endif
 
-#if defined(OS_DETECTION_ENABLE) && defined(DEFERRED_EXEC_ENABLE)
-uint32_t startup_exec(uint32_t trigger_time, void *cb_arg);
-#endif
-
 __attribute__((weak)) void keyboard_post_init_keymap(void) {}
 void                       keyboard_post_init_user(void) {
 #if defined(CUSTOM_RGBLIGHT)
@@ -81,9 +77,6 @@ void                       keyboard_post_init_user(void) {
 #endif
 #ifdef CUSTOM_DYNAMIC_MACROS_ENABLE
     dynamic_macro_init();
-#endif
-#if defined(OS_DETECTION_ENABLE) && defined(DEFERRED_EXEC_ENABLE)
-    defer_exec(100, startup_exec, NULL);
 #endif
 #ifdef RTC_ENABLE
     rtc_init();

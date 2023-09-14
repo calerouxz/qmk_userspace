@@ -24,8 +24,8 @@
 #ifdef POINTING_DEVICE_ENABLE
 #    include "pointing/pointing.h"
 #endif
-#ifdef OS_DETECTION_ENABLE
-#    include "os_detection.h"
+#ifdef UNICODE_COMMON_ENABLE
+#    include "keyrecords/unicode.h"
 #endif
 
 /* Define layer names */
