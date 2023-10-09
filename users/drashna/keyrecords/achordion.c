@@ -21,6 +21,7 @@
  */
 
 #include "achordion.h"
+#include "drashna.h"
 
 // Copy of the `record` and `keycode` args for the current active tap-hold key.
 static keyrecord_t tap_hold_record;
@@ -43,10 +44,20 @@ enum {
 };
 static uint8_t achordion_state = STATE_RELEASED;
 
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+#    include "pointing_device_auto_mouse.h"
+#endif
+
 // Calls `process_record()` with state set to RECURSING.
 static void recursively_process_record(keyrecord_t* record, uint8_t state) {
     achordion_state = STATE_RECURSING;
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+    int8_t mouse_key_tracker = get_auto_mouse_key_tracker();
+#endif
     process_record(record);
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+    set_auto_mouse_key_tracker(mouse_key_tracker);
+#endif
     achordion_state = state;
 }
 
@@ -73,11 +84,7 @@ bool process_achordion(uint16_t keycode, keyrecord_t* record) {
     const bool is_mt       = IS_QK_MOD_TAP(keycode);
     const bool is_tap_hold = is_mt || IS_QK_LAYER_TAP(keycode);
     // Check that this is a normal key event, don't act on combos.
-#ifdef IS_KEYEVENT
     const bool is_key_event = IS_KEYEVENT(record->event);
-#else
-    const bool is_key_event = (record->event.key.row < 254 && record->event.key.col < 254);
-#endif
 
     if (achordion_state == STATE_RELEASED) {
         if (is_tap_hold && record->tap.count == 0 && record->event.pressed && is_key_event) {
@@ -212,6 +219,9 @@ __attribute__((weak)) bool achordion_chord(uint16_t tap_hold_keycode, keyrecord_
 
 // By default, the timeout is 1000 ms for all keys.
 __attribute__((weak)) uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
+    if (layer_state_is(_MOUSE)) {
+        return 0;
+    }
     return 1000;
 }
 
