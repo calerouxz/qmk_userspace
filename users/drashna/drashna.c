@@ -4,7 +4,6 @@
 #include "drashna.h"
 #include <string.h>
 #include <stdio.h>
-#include <ctype.h>
 
 userspace_config_t userspace_config;
 static bool        device_suspended = false;
@@ -216,48 +215,6 @@ void format_layer_bitmap_string(char *buffer, layer_state_t state, layer_state_t
     }
     *buffer = 0;
 }
-
-#if defined(OS_DETECTION_ENABLE)
-bool process_detected_host_os_user(os_variant_t detected_os) {
-    if (detected_os) {
-        bool is_mac = (detected_os == OS_MACOS) || (detected_os == OS_IOS);
-        if (keymap_config.swap_lctl_lgui != is_mac) {
-            keymap_config.swap_lctl_lgui = keymap_config.swap_rctl_rgui = is_mac;
-            eeconfig_update_keymap(keymap_config.raw);
-        }
-#    ifdef UNICODE_COMMON_ENABLE
-        set_unicode_input_mode_soft(keymap_config.swap_lctl_lgui ? UNICODE_MODE_MACOS : UNICODE_MODE_WINCOMPOSE);
-#    endif
-        switch (detected_os) {
-            case OS_UNSURE:
-                xprintf("unknown OS Detected\n");
-                break;
-            case OS_LINUX:
-                xprintf("Linux Detected\n");
-                break;
-            case OS_WINDOWS:
-                xprintf("Windows Detected\n");
-                break;
-            case OS_WINDOWS_UNSURE:
-                xprintf("Windows? Detected\n");
-                break;
-            case OS_MACOS:
-                xprintf("MacOS Detected\n");
-                break;
-            case OS_IOS:
-                xprintf("iOS Detected\n");
-                break;
-            case OS_PS5:
-                xprintf("PlayStation 5 Detected\n");
-                break;
-            case OS_HANDHELD:
-                xprintf("Nintendo Switch/Quest 2 Detected\n");
-                break;
-        }
-    }
-    return true;
-}
-#endif
 
 static host_driver_t *host_driver          = 0;
 static bool           host_driver_disabled = false;

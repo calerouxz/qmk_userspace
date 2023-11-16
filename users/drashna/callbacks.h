@@ -21,3 +21,7 @@ void          housekeeping_task_keymap(void);
 #ifdef SPLIT_KEYBOARD
 void matrix_slave_scan_keymap(void);
 #endif
+
+#if defined(OS_DETECTION_ENABLE)
+bool process_detected_host_os_keymap(os_variant_t detected_os);
+#endif
