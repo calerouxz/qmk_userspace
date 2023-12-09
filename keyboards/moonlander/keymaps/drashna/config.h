@@ -13,3 +13,5 @@
             2, 4                  \
         }                         \
     }
+
+#define OS_DETECTION_KEYBOARD_RESET
