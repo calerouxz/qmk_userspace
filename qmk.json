@@ -1,6 +1,8 @@
 {
     "userspace_version": "1.0",
     "build_targets": [
-        ["all", "miryoku"]
+        ["all", "miryoku"],
+        ["crkbd/rev1", "miryoku"],
+        ["cantor", "miryoku"]
     ]
 }
