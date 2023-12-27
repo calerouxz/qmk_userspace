@@ -17,3 +17,21 @@ qmk flash -kb cantor -km miryoku  \
   -e MIRYOKU_TAP=QWERTY \
   -e MIRYOKU_CLIPBOARD=WIN \
 ```
+
+## QWERTY, Mac
+Compile
+```
+qmk compile -kb cantor -km miryoku  \
+  -e MIRYOKU_ALPHAS=QWERTY \
+  -e MIRYOKU_EXTRA=COLEMAKDH \
+  -e MIRYOKU_TAP=QWERTY \
+  -e MIRYOKU_CLIPBOARD=MAC \
+```
+Flash
+```
+qmk flash -kb cantor -km miryoku  \
+  -e MIRYOKU_ALPHAS=QWERTY \
+  -e MIRYOKU_EXTRA=COLEMAKDH \
+  -e MIRYOKU_TAP=QWERTY \
+  -e MIRYOKU_CLIPBOARD=MAC \
+```
