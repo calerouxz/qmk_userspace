@@ -21,10 +21,10 @@ void oled_render_layer_state(void) {
 
   switch (get_highest_layer(layer_state)) {
   case BASE:
-    oled_write("Base", false);
+    oled_write("COLEMAKDH", false);
     break;
   case EXTRA:
-    oled_write("Colemak", false);
+    oled_write("QWERTY", false);
     break;
   case TAP:
     oled_write("TAP", false);
