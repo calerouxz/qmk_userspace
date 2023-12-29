@@ -21,7 +21,7 @@ void oled_render_layer_state(void) {
 
   switch (get_highest_layer(layer_state)) {
   case BASE:
-    oled_write("COLEMAKDH", false);
+    oled_write("COLEMAKDH", false);  // look for layer ID for "base" and "extra"
     break;
   case EXTRA:
     oled_write("QWERTY", false);
