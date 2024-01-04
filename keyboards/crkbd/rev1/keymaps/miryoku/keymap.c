@@ -21,10 +21,10 @@ void oled_render_layer_state(void) {
 
   switch (get_highest_layer(layer_state)) {
   case BASE:
-    oled_write("COLEMAKDH", false);  // look for layer ID for "base" and "extra"
+    oled_write("BASE", false);  // look for layer ID for "base" and "extra"
     break;
   case EXTRA:
-    oled_write("QWERTY", false);
+    oled_write("EXTRA", false);
     break;
   case TAP:
     oled_write("TAP", false);
