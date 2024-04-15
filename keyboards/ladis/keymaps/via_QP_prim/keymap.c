@@ -1,7 +1,6 @@
 //#include "ladis.h"
 #include QMK_KEYBOARD_H
 #include "qp.h"
-#include "gameover.qff.h"
 
 painter_device_t display;
 painter_font_handle_t gameover;

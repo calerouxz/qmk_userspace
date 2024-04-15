@@ -71,5 +71,4 @@ void keyboard_post_init_kb(void) {
         qp_drawtext(display, 1, 2, digi, layer_name);
     qp_flush(display);
     }
-
 //qmk compile -kb ladis -km via_QP -e CONVERT_TO=elite_pi
