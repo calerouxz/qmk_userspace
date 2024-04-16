@@ -2,9 +2,11 @@
 #include QMK_KEYBOARD_H
 #include "qp.h"
 #include "digi.qff.h"
+#include "roboto.qff.h"
 
 painter_device_t display;
 painter_font_handle_t digi;
+painter_font_handle_t roboto;
 
 enum { _BASE, _EXTRA, _TAP, _BUTTON };
 
@@ -66,16 +68,17 @@ void keyboard_post_init_user(void) {
     qp_init(display,QP_ROTATION_0);
     qp_power(display, true);
     digi = qp_load_font_mem(font_digi);
+    roboto = qp_load_font_mem(font_roboto);
 }
 
 
 void housekeeping_task_user(void) {
-
         static const char *last_layer_name = NULL;
         const char *layer_name = current_layer_name();
         if (last_layer_name != layer_name) {
             last_layer_name = layer_name;
-        qp_drawtext(display, 1, 2, digi, layer_name);
+        qp_drawtext(display, 10, 15, digi, layer_name);
+        qp_drawtext (display, 1, 1, roboto, "Layer:");
         }
 
     qp_flush(display);

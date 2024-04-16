@@ -7,3 +7,4 @@ OLED_ENABLE = no
 VPATH += keyboards/ladis/via_QP
 SRC += \
 	digi.qff.c \
+	roboto.qff.c \
