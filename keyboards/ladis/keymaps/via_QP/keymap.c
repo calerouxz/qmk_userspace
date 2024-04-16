@@ -49,15 +49,15 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 const char *current_layer_name(void) {
     switch (get_highest_layer(layer_state)) {
         case _BASE:
-            return "BASE  ";
+            return "BASE   ";
         case _EXTRA:
-            return "EXTRA ";
+            return "EXTRA  ";
         case _TAP:
-            return "TAP   ";
+            return "TAP    ";
         case _BUTTON:
-            return "BUTTON";
+            return "BUTTON ";
     }
-            return "UKN   ";
+            return "UKN    ";
 
 }
 
