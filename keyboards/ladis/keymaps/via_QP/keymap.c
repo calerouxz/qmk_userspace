@@ -33,42 +33,52 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS , KC_TRNS , KC_TRNS ,
 		KC_TRNS , KC_TRNS , KC_TRNS ,
 		KC_TRNS , KC_TRNS , KC_TRNS ,
-		KC_TRNS , KC_TRNS ),
+		KC_TRNS , KC_TRNS )
 
 };
 
  #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [0] =   { ENCODER_CCW_CW(KC_BSPC, KC_DEL),  ENCODER_CCW_CW(KC_PGDN, KC_PGUP)  },
-    [1] =   { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)  },
-    [2] =   { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)  },
-    [3] =   { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)  }
+    [_BASE] =   { ENCODER_CCW_CW(KC_BSPC, KC_DEL),  ENCODER_CCW_CW(KC_PGDN, KC_PGUP)  },
+    [_EXTRA] =   { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)  },
+    [_TAP] =   { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)  },
+    [_BUTTON] =   { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)  }
 };
 #endif
 
 const char *current_layer_name(void) {
     switch (get_highest_layer(layer_state)) {
         case _BASE:
-            return "BASE";
+            return "BASE  ";
         case _EXTRA:
-            return "EXTRA";
+            return "EXTRA ";
         case _TAP:
-            return "TAP";
+            return "TAP   ";
         case _BUTTON:
             return "BUTTON";
     }
-    return "UKN";
+    return         "UKN   ";
 
 }
 
-void keyboard_post_init_kb(void) {
+void keyboard_post_init_user(void) {
     display = qp_sh1106_make_i2c_device(128, 32, 0x3C);
     qp_init(display,QP_ROTATION_0);
     qp_power(display, true);
     digi = qp_load_font_mem(font_digi);
-        const char *current_layer_name(void);
+}
+
+
+void housekeeping_task_user(void) {
+
+        static const char *last_layer_name = NULL;
         const char *layer_name = current_layer_name();
+        if (last_layer_name != layer_name) {
+            last_layer_name = layer_name;
         qp_drawtext(display, 1, 2, digi, layer_name);
+        }
+
     qp_flush(display);
     }
+
 //qmk compile -kb ladis -km via_QP -e CONVERT_TO=elite_pi
