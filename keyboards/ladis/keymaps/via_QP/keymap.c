@@ -57,7 +57,7 @@ const char *current_layer_name(void) {
         case _BUTTON:
             return "BUTTON";
     }
-    return         "UKN   ";
+            return "UKN   ";
 
 }
 
